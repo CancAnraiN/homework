@@ -1,0 +1,6 @@
+-rw-r--r-- 1 can can      0  五  21 19:43 1.txt
+-rw-rw-r-- 1 can can 210033  四   8 23:23 Screenshot from 2020-04-08 23-23-40.png
+-rw-rw-r-- 1 can can    348  四   9 22:33 makefile
+-rw-rw-r-- 1 can can   4891  五  21 14:34 shell.c
+-rwxrwxr-x 1 can can  17656  五  21 19:42 myshell
+total 240

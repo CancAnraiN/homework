@@ -1,0 +1,58 @@
+#include <philosopher.h>
+
+int main()
+{
+	pthread_t philosopher_thread[N];
+	int* philosopher_num[N];
+	running = TRUE;
+	signal(SIGINT, program_stop); 
+
+	for(int i = 0 ; i < N ; ++i)
+	{
+		philosopher_num[i] = (int*)malloc(sizeof(int));
+		*philosopher_num[i] = i;
+		philosopher_thread[i] = i;
+		pthread_create(&philosopher_thread[i], NULL, philosopher, (void*)philosopher_num[i]);
+	}
+
+	while(TRUE && running)
+	{
+		monitor.show();
+		sleep(1);
+		++count;
+	}
+
+	for(int i = 0 ; i < N ; ++i)
+	{
+		free(philosopher_num[i]);
+		pthread_join(philosopher_thread[i], NULL);
+	}
+
+	printf("\nAll philosopher STOP!!\n");
+
+	return 0;
+}
+
+
+void* philosopher(void* i) // i: philosopher number, from 0 to N1
+{
+	int num = *( (int*)i );
+	while (running)
+	{
+		monitor.think();        
+		monitor.take_forks(num); 
+		monitor.eat();           
+		monitor.put_forks(num);  
+	}
+	
+	printf("\nphilosopher %d STOP!\n",num);
+
+	return NULL;
+}
+
+void program_stop(int i)
+{
+	running = FALSE;
+}
+
+
